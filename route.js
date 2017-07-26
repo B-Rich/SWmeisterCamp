@@ -94,7 +94,13 @@ router.get('/profiles', function(req, res) {
     });
 })
 
-router.get()
+router.get('/profile/:profilename', function(req, res) {
+    User.findOne({ username: req.params.username }, function(err, user) {
+    if (err) { return next(err); }
+    if (!user) { return next(404); }
+    res.render("profile", { user: user });
+  });
+})
 
 router.get('/search', function(req, res) {
     let projects = req.query.projects;
@@ -132,7 +138,7 @@ router.get('/search', function(req, res) {
     });
     }
     if (!specs) {
-        Contents.find({ spec: { $regex: new RegExp(projects, "i") } }).find({}).sort({ date: -1 }).exec(function (err, rawContents) {
+        Contents.find({ spec: { $regex: new RegExp(projects, "i") } }).sort({ date: -1 }).exec(function (err, rawContents) {
         if (err) throw err;
         if (rawContents.length > 0) {
             var index = 0;
