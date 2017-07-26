@@ -10,8 +10,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    req.flash("info", "You must be logged in to see this page.");
-    res.redirect("/login");
+      res.sendStatus(400)
   }
 }
 
@@ -22,10 +21,6 @@ router.use(function(req, res, next) {
   res.locals.infos = req.flash("info");
   next();
 });
-
-router.get('/', function(req, res) {
-    res.redirect('/projects');
-})
 
 router.get('/projects', function(req, res) {
     let responseData = [];
@@ -43,16 +38,12 @@ router.get('/projects', function(req, res) {
                     author: item.author
                 });
             });
-            res.render("projects", {Contents: responseData});
+            res.status(200).send(responseData);
         }
         else {
-            res.render("projects", {Contents: responseData});
+            res.status(200).send([]);
         }
     });
-})
-
-router.get('/new-projects', function(req, res) {
-    res.render("new-projects");
 })
 
 router.post('/new-projects', function(req, res) {
@@ -75,8 +66,7 @@ router.post('/new-projects', function(req, res) {
         date: new Date(),
         author: currentUser
     })
-    newProjects.save('next');
-    res.redirect('/projects');
+    newProjects.save(() => {res.sendStatus(200)});
 })
 
 router.get('/profiles', function(req, res) {
@@ -96,10 +86,10 @@ router.get('/profiles', function(req, res) {
                     resume: item.resume
                 });
             });
-            res.render("profiles", {users: responseData});
+            res.status(200).send(responseData);
         }
         else {
-            res.render("profiles", {users: responseData});
+            res.status(200).send([]);
         }
     });
 })
@@ -109,11 +99,11 @@ router.get('/search', function(req, res) {
     let specs = req.query.specs;
 
     if(!projects || !specs) {
-        res.redirect('/projects');
+        res.sendStatus(400);
     }
 
     if (projects && specs) {
-        res.send("Type something");
+        res.sendStatus(400)
         return;
     }
 
@@ -132,10 +122,10 @@ router.get('/search', function(req, res) {
                     author: item.author
                 });
             });
-            res.render("search", {Contents: responseData});
+            res.status(200).send(responseData);
         }
         else {
-            res.render("search", {Contents: responseData});
+            res.status(200).send([]);
         }
     });
     }
@@ -154,32 +144,31 @@ router.get('/search', function(req, res) {
                     author: item.author
                 });
             });
-            res.render("search", {Contents: responseData});
+            res.status(200).send(responseData);
         }
         else {
-            res.render("search", {Contents: responseData});
+            res.status(200).send([]);
         }
     });
     }
 })
 
-router.get("/login", function(req, res) {
-  res.render("login");
-});
-
 router.post("/login", passport.authenticate("login", {
-  successRedirect: "/",
-  failureRedirect: "/login",
-  failureFlash: true
+  successRedirect: "/loginsuccess",
+  failureRedirect: "/loginfailure",
 }));
+
+router.get("/loginsuccess", function(req, res) {
+    res.sendStatus(200);
+})
+
+router.get("/loginfailure", function(req, res) {
+    res.sendStatus(400);
+})
 
 router.get("/logout", function(req, res) {
   req.logout();
-  res.redirect("/");
-});
-
-router.get("/signup", function(req, res) {
-  res.render("signup");
+  res.sendStatus(200);
 });
 
 router.post("/signup", function(req, res, next) {
@@ -191,33 +180,27 @@ router.post("/signup", function(req, res, next) {
 
     if (err) { return next(err); }
     if (user) {
-      req.flash("error", "User already exists");
-      return res.redirect("/signup");
+        res.sendStatus(400);
     }
 
     var newUser = new User({
       username: username,
       password: password
     });
-    newUser.save(next);
+    newUser.save((next) => {res.sendStatus(200)});
 
   });
 }, passport.authenticate("login", {
-  successRedirect: "/",
-  failureRedirect: "/signup",
-  failureFlash: true
+  successRedirect: "/loginsuccess",
+  failureRedirect: "/loginfailure",
 }));
-
+c 
 router.get("/users/:username", function(req, res, next) {
   User.findOne({ username: req.params.username }, function(err, user) {
     if (err) { return next(err); }
     if (!user) { return next(404); }
-    res.render("profile", { user: user });
+    res.status(200).send(user);
   });
-});
-
-router.get("/edit", ensureAuthenticated, function(req, res) {
-  res.render("edit");
 });
 
 router.post("/edit", ensureAuthenticated, function(req, res, next) {
@@ -230,8 +213,7 @@ router.post("/edit", ensureAuthenticated, function(req, res, next) {
       next(err);
       return;
     }
-    req.flash("info", "Profile updated!");
-    res.redirect("/edit");
+    res.sendStatus(200);
   });
 });
 
