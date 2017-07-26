@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>edit</title>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/profile_Style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css">
+    </head>
+    <body>
+    <style type="text/css">
+a{
+		color: #777;
+		padding:  10px 15px;
+		display: block;
+		line-height: 30px;	
+	}
+</style>
+
+<nav class="navbar navbar-defult">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-ex1-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-boand" href="#">로고</a>
+	</div>
+
+	<div class="collapse navbar-collapse navbar-ex1-collapse">
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="#">Home</a></li>
+			<li><a href="#">Project</a></li>
+			<li><a href="#">Co-Worker</a></li>
+            <li><a href="#">My Page</a></li>
+		</ul>
+		<form class="navbar-form navbar-right" role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="검색">
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
+</nav>
+        <div>
+            
+        
+        </div>
+        <form action="kk" method="post">
+            <div class="base_p0">
+                <font size="14">My Profile</font> <br>
+                <img src="images/icon1.png">
+                <img src="images/icon2.png">
+                <img src="images/icon3.png"><br>
+                Select your pofile image :
+                <select class="sel">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <br>
+                Your Name:<input type="text" placeholder="name" name="username"/><br>
+                Your NickName : <input type="text" placeholder="nickname" name="displayname"/><br>
+                Your Age : <input type="text" placeholder="age" name="age"/><br>
+            </div>
+            <div class="base_p4">
+                <font size="14">Detail</font><br>
+                Your Introduce : <input type="textarea" placeholder="bio" name="bio"/><br>
+                Your Spec : <input type="text" placeholder="spec" name="spec"/><br>    
+                <div class="filebox bs3-primary">      
+                    <label for="ex_file2">my resume upload</label> 
+                          <input type="file" id="ex_file2"> 
+                          <input type="submit" value="Save" class="submit"/>
+                </div>
+                
+            </div>
+            
+        </form>
+        <script type="text/javascript" src="javascripts/bootstrap.js"></script>
+<script type="text/javascript" src="javascripts/jquery-3.0.0.min.js"></script>
+    </body>
+</html>

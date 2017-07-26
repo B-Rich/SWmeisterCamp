@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>my proFile</title>
-    <meta charset='utf-8'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/profile_Style.css">
+    <meta charset="utf-8">
+    <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/search.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css">
     </head>
-    <body>
+<body>
     <style type="text/css">
 a{
 		color: #777;
@@ -32,6 +32,7 @@ a{
 			<li class="active"><a href="#">Home</a></li>
 			<li><a href="#">Project</a></li>
 			<li><a href="#">Co-Worker</a></li>
+            <li><a href="#">My Page</a></li>
 		</ul>
 		<form class="navbar-form navbar-right" role="search">
 			<div class="form-group">
@@ -41,41 +42,47 @@ a{
 		</form>
 	</div>
 </nav>
-    <div class="b1">
-    <div class="p0">
-        <font size="14">my pofile</font><br>
+    <div class="se1">
+    <input type="text" placeholder="Search your co-worker" name="search"/>
+    <select>
+        <option>Project</option>
+        <option>Person</option>
+        </select>
+    <input type="button" value="Search"/>
     </div>
-    <div class="base_p1">
-        <img src="images/icon3.png">
-    </div>
-    <%if(contents.length>0){%>
+    <div>
+<%if(contents.length>0){%>
         <%var i = 0;%>
         <%contents.forEach(function(item){%>
         <%i++;%>
-    <div class="base_p2">
-        <% if(item.id==="username"){%>
-        <h2>my name :<%=item.value%></h2>
-        <%} else if(item.id==="displayname"){%>
-        <h2>my nick :<%=item.value%></h2>
-        <%} else if(item.id==="age"){%>
-        <h2>my age : <%=item.value%></h2>
-    </div>
-    </div>
-    <div class="base_p3">
-        <div class="b2">
-            <font size="14">Detail</font><br>
+        <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="text-muted pull-right">
+          <% if (item.author === "Anonymous") {%>
+          by <%= item.author %>
+          <%} else {%>
+          <a href="/users/<%= item.writer %>">by <%= item.writer %></a>
+          <% } %>
+          <%= item.date %>
         </div>
-        <div>
-        <%} else if(item.id==="bio"){%>
-        <h2>my introduce: <%=item.value%></h2>
-        <%} else if(item.id==="spec"){%>
-        <h2>my spec : <%=item.value%></h2>
-        <%} else if(item.id==="resume"){%>
-        <h2>my resume: <%=item.value%></h2>
-        <%}%>
-        </div>
+        <%= item.title %>
+      </div>
+      <div class="panel-body">
+        <%= item.spec %> 
+	  </div>
+	  <div class="panel-body">
+		  <%= item.workstyle %>
     </div>
-        <script type="text/javascript" src="javascripts/bootstrap.js"></script>
-<script type="text/javascript" src="javascripts/jquery-3.0.0.min.js"></script>
+        <%})%>
+<% } else { %>   No entries! <a href="/new-profile">Add one!</a>
+<% } %>
+    </div>
+     <script type="text/javascript" src="javascripts/bootstrap.js"></script>
+     <script type="text/javascript" src="javascripts/jquery-3.0.0.min.js"></script>
     </body>
+
+
+
+
+
 </html>
