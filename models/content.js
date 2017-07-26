@@ -5,7 +5,7 @@ var boardSchema = mongoose.Schema({
     spec: String,
     workstyle: String,
     date: {type: Date, default: Date.now},
-    writer: String
+    author: String
 });
 var contents =  mongoose.model('BoardContents', boardSchema);
 
