@@ -1,0 +1,23 @@
+{
+  "name": "peoplefind",
+  "version": "1.0.0",
+  "description": "SW meister camp hacker-ton",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lewisxyz000/SWmeisterCamp.git"
+  },
+  "author": "team H-17",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lewisxyz000/SWmeisterCamp/issues"
+  },
+  "homepage": "https://github.com/Lewisxyz000/SWmeisterCamp#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "passport": "^0.3.2"
+  }
+}
