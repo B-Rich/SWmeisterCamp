@@ -94,6 +94,8 @@ router.get('/profiles', function(req, res) {
     });
 })
 
+router.get()
+
 router.get('/search', function(req, res) {
     let projects = req.query.projects;
     let specs = req.query.specs;
@@ -116,10 +118,10 @@ router.get('/search', function(req, res) {
                 index++;
                 responseData.push({
                     index: index,
-                    title: item.title,
+                    bio: item.bio,
                     spec: item.spec,
-                    workstyle: item.workstyle,
-                    author: item.author
+                    resume: item.resume,
+                    dispalyName: item.dispalyName
                 });
             });
             res.status(200).send(responseData);
