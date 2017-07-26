@@ -194,7 +194,7 @@ router.post("/signup", function(req, res, next) {
   successRedirect: "/loginsuccess",
   failureRedirect: "/loginfailure",
 }));
-c 
+
 router.get("/users/:username", function(req, res, next) {
   User.findOne({ username: req.params.username }, function(err, user) {
     if (err) { return next(err); }
